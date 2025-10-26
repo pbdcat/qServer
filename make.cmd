@@ -1,5 +1,8 @@
 @echo off
+
+md mntdir
 set mnt=%CD%\mntdir
+set drp=%CD%\drop
 
 dism /mount-image /imagefile:srv2022std.wim /index:1 /mountdir:%mnt%
 
@@ -11,10 +14,6 @@ reg load HKLM\m_def %mnt%\Windows\System32\config\DEFAULT
 
 call hlpr\z_del.cmd
 call hlpr\basictweaks.cmd
-call drop\drop.cmd
-
-REM echo pausing so you can break something on your own
-REM pause
 
 reg unload HKLM\m_sxs
 reg unload HKLM\m_sft
@@ -22,8 +21,10 @@ reg unload HKLM\m_sys
 reg unload HKLM\m_usr
 reg unload HKLM\m_def
 
-echo pausing so you can use dism
-pause
+call hlpr\drop.cmd
+
+rem echo pausing so you can use dism
+rem pause
 
 dism /image:%mnt% /cleanup-image /startcomponentcleanup /resetbase
 del /f /q /a %mnt%\Users\Default\*.LOG1
@@ -48,5 +49,3 @@ del /f /q srv2022std.wim
 
 echo done!
 exit /b
-REM pause
-REM exit
