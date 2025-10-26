@@ -4,6 +4,15 @@ This set of scripts takes an unmodified Windows Server 2022 Standard (with DE) .
 Removed components:
 - Microsoft Edge
 - Windows Defender
+- Internet Explorer
+- Language Features (handwriting, OCR, speech, TTS)
+- Media Player
+- Paint
+- Powershell ISE
+- Steps Recorder
+- Math Input Panel
+- Wordpad
+- XPS Viewer
 
 Some of the applied tweaks:
 - Scheduler priority is set for running programs instead of background processes
@@ -16,7 +25,7 @@ Some of the applied tweaks:
 # Structure
 \make.cmd - the main script that handles basic operatins like mounting/unmounting the image, mounting/unmounting its registry and launching other scripts from the \hlpr\ folder.
 \drop\ - files to be added to an offline image.
-\hlpr\ - scripts that are being called from make.cmd. These include basictweaks.cmd (basic registry tweaks), z_del.cmd (handles the component removal) and drop.cmd (copies files from \drop\ to their corresponding destinations and adds the hidi2c driver).
+\hlpr\ - scripts that are being called from make.cmd. These include basictweaks.cmd (basic registry tweaks), r_sxs.cmd (performs manual component removal), r_dism.cmd (removes packages using DISM) and drop.cmd (copies files from \drop\ to their corresponding destinations and installs the hidi2c driver).
 
 # Usage
 Drop your Windows Server 2022 Standard (with DE) image into the project folder, rename it to svr2022std.wim and run make.cmd with TrustedInstaller privileges.

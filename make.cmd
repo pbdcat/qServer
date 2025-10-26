@@ -6,13 +6,15 @@ set drp=%CD%\drop
 
 dism /mount-image /imagefile:srv2022std.wim /index:1 /mountdir:%mnt%
 
+call hlpr\r_dism.cmd
+
 reg load HKLM\m_sxs %mnt%\Windows\System32\config\COMPONENTS
 reg load HKLM\m_sft %mnt%\Windows\System32\config\SOFTWARE
 reg load HKLM\m_sys %mnt%\Windows\System32\config\SYSTEM
 reg load HKLM\m_usr %mnt%\Users\Default\NTUSER.DAT
 reg load HKLM\m_def %mnt%\Windows\System32\config\DEFAULT
 
-call hlpr\z_del.cmd
+call hlpr\r_sxs.cmd
 call hlpr\basictweaks.cmd
 
 reg unload HKLM\m_sxs
@@ -47,5 +49,5 @@ dism /unmount-image /mountdir:%mnt% /commit
 dism /export-image /sourceimagefile:srv2022std.wim /sourceindex:1 /destinationimagefile:install.wim /compress:max
 del /f /q srv2022std.wim
 
-echo done!
+echo Done!
 exit /b
