@@ -4,7 +4,12 @@ md mntdir
 set mnt=%CD%\mntdir
 set drp=%CD%\drop
 
-dism /mount-image /imagefile:srv2022std.wim /index:1 /mountdir:%mnt%
+dism /mount-image /imagefile:install.wim /index:1 /mountdir:%mnt%
+
+if errorlevel==1 (
+	echo DISM error! Exiting
+	exit /b
+)
 
 call hlpr\r_dism.cmd
 
@@ -16,6 +21,7 @@ reg load HKLM\m_def %mnt%\Windows\System32\config\DEFAULT
 
 call hlpr\r_sxs.cmd
 call hlpr\basictweaks.cmd
+call hlpt\i_copy.cmd
 
 reg unload HKLM\m_sxs
 reg unload HKLM\m_sft
@@ -23,10 +29,7 @@ reg unload HKLM\m_sys
 reg unload HKLM\m_usr
 reg unload HKLM\m_def
 
-call hlpr\drop.cmd
-
-rem echo pausing so you can use dism
-rem pause
+call hlpr\i_dism.cmd
 
 dism /image:%mnt% /cleanup-image /startcomponentcleanup /resetbase
 del /f /q /a %mnt%\Users\Default\*.LOG1
@@ -46,8 +49,9 @@ rd /s /q %mnt%\Windows\WinSxS\InstallTemp
 rd /s /q %mnt%\Windows\WinSxS\Temp
 
 dism /unmount-image /mountdir:%mnt% /commit
-dism /export-image /sourceimagefile:srv2022std.wim /sourceindex:1 /destinationimagefile:install.wim /compress:max
-del /f /q srv2022std.wim
+rename install.wim install_.wim
+dism /export-image /sourceimagefile:install_.wim /sourceindex:1 /destinationimagefile:install.wim /compress:max
+del /f /q install_.wim
 
 echo Done!
 exit /b

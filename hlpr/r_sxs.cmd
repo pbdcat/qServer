@@ -25,4 +25,8 @@ reg delete "HKLM\m_sft\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Ta
 reg delete "HKLM\m_sft\Microsoft\Windows\CurrentVersion\Appx\AppxAllUserStore\InboxApplications\Microsoft.Windows.SecHealthUI_10.0.20348.2849_neutral__cw5n1h2txyewy" /f
 rd %mnt%\Windows\SystemApps\Microsoft.Windows.SecHealthUI_cw5n1h2txyewy /s /q
 
+attrib +h "%mnt%\ProgramData\Microsoft\Windows\Start Menu\Programs\Accessories\Snipping Tool.lnk"
+attrib +h "%mnt%\ProgramData\Microsoft\Windows\Start Menu\Programs\Accessories\System Tools\Character Map.lnk"
+attrib +h "%mnt%\ProgramData\Microsoft\Windows\Start Menu\Programs\Accessories\System Tools\Windows Server Backup.lnk"
+
 exit /b
