@@ -29,7 +29,9 @@ Added features:
 
 # Structure
 make.cmd - the main script that handles basic operatins like mounting/unmounting the image, mounting/unmounting its registry and launching other scripts from the hlpr/ folder.
+
 drop/ - files to be added to an offline image.
+
 hlpr/ - scripts that are being called from make.cmd. These include basictweaks.cmd (basic registry tweaks), r_sxs.cmd (performs manual component removal), r_dism.cmd (removes packages using DISM), i_copy.cmd (copies files from drop/ to their corresponding destinations) and i_dism.cmd (driver/package integration using DISM).
 
 # Usage
