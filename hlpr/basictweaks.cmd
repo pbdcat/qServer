@@ -248,14 +248,6 @@ reg add "HKLM\m_usr\Environment" /v "TMP" /t REG_EXPAND_SZ /d "%systemdrive%\Tem
 
 reg add "HKLM\m_def\Console" /v "WindowAlpha" /t REG_DWORD /d 0x000000db /f
 
-reg add "HKLM\m_sft\Microsoft\Windows\CurrentVersion\Policies\System" /v "ConsentPromptBehaviorAdmin" /t REG_DWORD /d 0x00000000 /f
-reg add "HKLM\m_sft\Microsoft\Windows\CurrentVersion\Policies\System" /v "EnableInstallerDetection" /t REG_DWORD /d 0x00000000 /f
-rem reg add "HKLM\m_sft\Microsoft\Windows\CurrentVersion\Policies\System" /v "EnableLUA" /t REG_DWORD /d 0x00000000 /f
-reg add "HKLM\m_sft\Microsoft\Windows\CurrentVersion\Policies\System" /v "EnableVirtualization" /t REG_DWORD /d 0x00000000 /f
-reg add "HKLM\m_sft\Microsoft\Windows\CurrentVersion\Policies\System" /v "FilterAdministratorToken" /t REG_DWORD /d 0x00000000 /f
-reg add "HKLM\m_sft\Microsoft\Windows\CurrentVersion\Policies\System" /v "PromptOnSecureDesktop" /t REG_DWORD /d 0x00000000 /f
-reg add "HKLM\m_sft\Microsoft\Windows\CurrentVersion\Policies\System" /v "ValidateAdminCodeSignatures" /t REG_DWORD /d 0x00000000 /f
-
 reg add "HKLM\m_sft\Microsoft\Windows\CurrentVersion\Policies\Explorer" /v "SettingsPageVisibility" /t REG_SZ /d "hide:windowsdefender;search-moredetails;search-permissions;speech;windowsupdate;delivery-optimization" /f
 
 exit /b

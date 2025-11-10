@@ -1,26 +1,10 @@
-dism /image:mntdir /remove-package /packagename:Microsoft-Windows-InternetExplorer-Optional-Package~31bf3856ad364e35~amd64~~11.0.20348.3451
-dism /image:mntdir /remove-package /packagename:Microsoft-Windows-LanguageFeatures-Basic-en-us-Package~31bf3856ad364e35~amd64~~10.0.20348.1
-dism /image:mntdir /remove-package /packagename:Microsoft-Windows-LanguageFeatures-Handwriting-en-us-Package~31bf3856ad364e35~amd64~~10.0.20348.1
-dism /image:mntdir /remove-package /packagename:Microsoft-Windows-LanguageFeatures-OCR-en-us-Package~31bf3856ad364e35~amd64~~10.0.20348.1
-dism /image:mntdir /remove-package /packagename:Microsoft-Windows-LanguageFeatures-Speech-en-us-Package~31bf3856ad364e35~amd64~~10.0.20348.1
-dism /image:mntdir /remove-package /packagename:Microsoft-Windows-LanguageFeatures-TextToSpeech-en-us-Package~31bf3856ad364e35~amd64~~10.0.20348.1
-dism /image:mntdir /remove-package /packagename:Microsoft-Windows-MediaPlayer-Package~31bf3856ad364e35~amd64~~10.0.20348.3804
-dism /image:mntdir /remove-package /packagename:Microsoft-Windows-MSPaint-FoD-Package~31bf3856ad364e35~amd64~en-US~10.0.20348.1
-dism /image:mntdir /remove-package /packagename:Microsoft-Windows-MSPaint-FoD-Package~31bf3856ad364e35~amd64~~10.0.20348.2849
-dism /image:mntdir /remove-package /packagename:Microsoft-Windows-MSPaint-FoD-Package~31bf3856ad364e35~wow64~en-US~10.0.20348.1
-dism /image:mntdir /remove-package /packagename:Microsoft-Windows-MSPaint-FoD-Package~31bf3856ad364e35~wow64~~10.0.20348.1
-dism /image:mntdir /remove-package /packagename:Microsoft-Windows-PowerShell-ISE-FOD-Package~31bf3856ad364e35~amd64~en-US~10.0.20348.1
-dism /image:mntdir /remove-package /packagename:Microsoft-Windows-PowerShell-ISE-FOD-Package~31bf3856ad364e35~amd64~~10.0.20348.1
-dism /image:mntdir /remove-package /packagename:Microsoft-Windows-PowerShell-ISE-FOD-Package~31bf3856ad364e35~wow64~en-US~10.0.20348.1
-dism /image:mntdir /remove-package /packagename:Microsoft-Windows-PowerShell-ISE-FOD-Package~31bf3856ad364e35~wow64~~10.0.20348.1
-dism /image:mntdir /remove-package /packagename:Microsoft-Windows-StepsRecorder-Package~31bf3856ad364e35~amd64~en-US~10.0.20348.1
-dism /image:mntdir /remove-package /packagename:Microsoft-Windows-StepsRecorder-Package~31bf3856ad364e35~amd64~~10.0.20348.1
-dism /image:mntdir /remove-package /packagename:Microsoft-Windows-StepsRecorder-Package~31bf3856ad364e35~wow64~en-US~10.0.20348.1
-dism /image:mntdir /remove-package /packagename:Microsoft-Windows-StepsRecorder-Package~31bf3856ad364e35~wow64~~10.0.20348.1
-dism /image:mntdir /remove-package /packagename:Microsoft-Windows-TabletPCMath-Package~31bf3856ad364e35~amd64~~10.0.20348.2849
-dism /image:mntdir /remove-package /packagename:Microsoft-Windows-WordPad-FoD-Package~31bf3856ad364e35~amd64~en-US~10.0.20348.1
-dism /image:mntdir /remove-package /packagename:Microsoft-Windows-WordPad-FoD-Package~31bf3856ad364e35~amd64~~10.0.20348.3451
-dism /image:mntdir /remove-package /packagename:Microsoft-Windows-WordPad-FoD-Package~31bf3856ad364e35~wow64~en-US~10.0.20348.1
-dism /image:mntdir /remove-package /packagename:Microsoft-Windows-WordPad-FoD-Package~31bf3856ad364e35~wow64~~10.0.20348.1
-dism /image:mntdir /remove-package /packagename:Microsoft-Windows-Xps-Xps-Viewer-Opt-Package~31bf3856ad364e35~amd64~~10.0.20348.3451
+hlpr\install_wim_tweak.exe /p %mnt% /r /n /c Microsoft-Windows-InternetExplorer-Optional
+hlpr\install_wim_tweak.exe /p %mnt% /r /n /c Microsoft-Windows-LanguageFeatures
+hlpr\install_wim_tweak.exe /p %mnt% /r /n /c Microsoft-Windows-MediaPlayer
+hlpr\install_wim_tweak.exe /p %mnt% /r /n /c Microsoft-Windows-MSPaint
+hlpr\install_wim_tweak.exe /p %mnt% /r /n /c Microsoft-Windows-PowerShell-ISE
+hlpr\install_wim_tweak.exe /p %mnt% /r /n /c Microsoft-Windows-StepsRecorder
+hlpr\install_wim_tweak.exe /p %mnt% /r /n /c Microsoft-Windows-TabletPCMath
+hlpr\install_wim_tweak.exe /p %mnt% /r /n /c Microsoft-Windows-WordPad
+hlpr\install_wim_tweak.exe /p %mnt% /r /n /c Microsoft-Windows-Xps-Xps-Viewer
 exit /b

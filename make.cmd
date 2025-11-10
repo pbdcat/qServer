@@ -21,7 +21,7 @@ reg load HKLM\m_def %mnt%\Windows\System32\config\DEFAULT
 
 call hlpr\r_sxs.cmd
 call hlpr\basictweaks.cmd
-call hlpt\i_copy.cmd
+call hlpr\i_copy.cmd
 
 reg unload HKLM\m_sxs
 reg unload HKLM\m_sft
