@@ -233,7 +233,10 @@ reg add "HKLM\m_sft\Microsoft\Windows\CurrentVersion\RunOnce" /v "1" /t REG_SZ /
 reg add "HKLM\m_sft\Microsoft\Windows\CurrentVersion\RunOnce" /v "2" /t REG_SZ /d "reg add \"HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System\" /v \"DisableCAD\" /t REG_DWORD /d 0x00000001 /f" /f
 reg add "HKLM\m_sft\Microsoft\Windows\CurrentVersion\RunOnce" /v "3" /t REG_SZ /d "reg add \"HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System\" /v \"ShutdownWithoutLogon\" /t REG_DWORD /d 0x00000001 /f" /f
 
-for /f "delims=" %%i in ('reg query "HKLM\m_sft\Microsoft\Windows\CurrentVersion\WINEVT\Channels"') do reg add "%%i" /v "Enabled" /t REG_DWORD /d 0x00000000 /f
+for /f "delims=" %%i in ('reg query "HKLM\m_sft\Microsoft\Windows\CurrentVersion\WINEVT\Channels"') do (
+	reg add "%%i" /v "Enabled" /t REG_DWORD /d 0x00000000 /f
+)
+
 reg add "HKLM\m_sft\Policies\Microsoft\Windows\System" /v "EnableSmartScreen" /t REG_DWORD /d 0x00000000 /f
 reg add "HKLM\m_sys\ControlSet001\Control\FileSystem" /v "NtfsDisable8dot3NameCreation" /t REG_DWORD /d 0x00000001 /f
 reg add "HKLM\m_sys\ControlSet001\Control\FileSystem" /v "NtfsDisableLastAccessUpdate" /t REG_DWORD /d 0x80000001 /f

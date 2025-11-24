@@ -1,5 +1,5 @@
 # Overview
-This set of scripts takes an unmodified Windows Server 2022 Standard (with DE) .wim image, removes some of the system components and applies tweaks to make it more desktop-friendly.
+This set of scripts takes an unmodified Windows Server 2022 Standard (with Desktop Experience) installation image, removes some of the system components and applies tweaks to make it more desktop-friendly.
 
 Removed components:
 - Microsoft Edge
@@ -37,4 +37,5 @@ hlpr/ – scripts that are being called from make.cmd. These include basictweaks
 post_install/ - post-install tweaks that can be copied to the installation media and should be applied manually.
 
 # Usage
-Drop your Windows Server 2022 Standard (with DE) install.wim image into the project folder and run make.cmd with TrustedInstaller privileges.
+Host OS: Windows 10 or higher is recommended.
+Drop your install.wim into the project folder and run make.cmd with TrustedInstaller privileges. Right now the script only works with Windows Server 2022 Standard (with Desktop Experience) build 20348.4405 (the build number is hard-coded in some parts of r_sxs.cmd).

@@ -5,9 +5,12 @@ set mnt=%CD%\mntdir
 set drp=%CD%\drop
 
 dism /mount-image /imagefile:install.wim /index:1 /mountdir:%mnt%
-
-if errorlevel==1 (
-	echo DISM error! Exiting
+if %errorlevel% neq 0 (
+	echo.
+	echo #########################
+	echo #  DISM error! Exiting  #
+	echo #########################
+	echo.
 	exit /b
 )
 
@@ -40,6 +43,7 @@ del /f /q /a %mnt%\Windows\System32\config\*.LOG1
 del /f /q /a %mnt%\Windows\System32\config\*.LOG2
 del /f /q /a %mnt%\Windows\System32\config\*.blf
 del /f /q /a %mnt%\Windows\System32\config\*.regtrans-ms
+rd /s /q %mnt%\inetpub
 rd /s /q %mnt%\PerfLogs
 rd /s /q "%mnt%\Windows\assembly\NativeImages_v4.0.30319_32"
 rd /s /q "%mnt%\Windows\assembly\NativeImages_v4.0.30319_64"
@@ -53,5 +57,9 @@ rename install.wim install_.wim
 dism /export-image /sourceimagefile:install_.wim /sourceindex:1 /destinationimagefile:install.wim /compress:max
 del /f /q install_.wim
 
-echo Done!
+echo.
+echo #########################
+echo #         Done!         #
+echo #########################
+echo.
 exit /b
