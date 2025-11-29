@@ -17,7 +17,7 @@ Removed components:
 Some of the applied tweaks:
 - Scheduler priority is set for running programs instead of background processes
 - Disabled Shutdown Event Tracker
-- Disabled Ctrl-Alt-Delete on logon
+- (not) Disabled Ctrl-Alt-Delete on logon (TODO)
 - Disabled all WMI autologgers and ETW channels
 - Context menu cleanup
 - Some tweaks for minimizing telemetry and improving overall responsiveness of the system
@@ -32,10 +32,11 @@ make.cmd – the main script that handles basic operatins like mounting/unmounti
 
 drop/ – files to be added to an offline image.
 
-hlpr/ – scripts that are being called from make.cmd. These include basictweaks.cmd (basic registry tweaks), r_sxs.cmd (performs manual component removal), r_dism.cmd (removes packages using DISM), i_copy.cmd (copies files from /drop/ to their corresponding destinations) and i_dism.cmd (driver/package integration using DISM).
+hlpr/ – scripts that are being called from make.cmd. These include basictweaks.cmd (basic registry tweaks), r_sxs.cmd (performs manual component removal), remsxs.cmd (unregisters winsxs components for further removal), r_dism.cmd (removes packages using DISM), i_copy.cmd (copies files from /drop/ to their corresponding destinations) and i_dism.cmd (driver/package integration using DISM).
 
 post_install/ - post-install tweaks that can be copied to the installation media and should be applied manually.
 
 # Usage
 Host OS: Windows 10 or higher is recommended.
-Drop your install.wim into the project folder and run make.cmd with TrustedInstaller privileges. Right now the script only works with Windows Server 2022 Standard (with Desktop Experience) build 20348.4405 (the build number is hard-coded in some parts of r_sxs.cmd).
+
+Drop your install.wim into the project folder and run make.cmd with TrustedInstaller privileges.

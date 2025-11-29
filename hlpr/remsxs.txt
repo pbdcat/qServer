@@ -1,0 +1,16 @@
+amd64_microsoft-windows-charmap.resources
+amd64_microsoft-windows-charmap
+amd64_microsoft-windows-s...appxmain.resources
+amd64_microsoft-windows-sechealthui.appxmain
+amd64_microsoft-windows-sechealthui.appxsetup
+amd64_microsoft-windows-smartscreen.resources
+amd64_microsoft-windows-smartscreen_
+amd64_microsoft-windows-smartscreen-adm
+amd64_windows-securityhealth-sso.resources
+amd64_windows-securityhealth-sso
+amd64_windows-shield-provider.resources
+amd64_windows-shield-provider_
+wow64_microsoft-windows-charmap.resources
+wow64_microsoft-windows-charmap_
+wow64_microsoft-windows-smartscreen.resources
+wow64_microsoft-windows-smartscreen_
