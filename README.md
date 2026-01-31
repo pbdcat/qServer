@@ -4,7 +4,7 @@ This set of scripts takes an unmodified Windows Server 2022 Standard (with Deskt
 Removed components:
 - Microsoft Edge
 - Windows Defender
-- Internet Explorer
+- Internet Explorer (application only)
 - Language Features (handwriting, OCR, speech, TTS)
 - Media Player
 - MSPaint
@@ -12,7 +12,13 @@ Removed components:
 - Steps Recorder
 - Math Input Panel
 - WordPad
-- XPS Viewer
+- XPS Viewer and Services
+- Windows Server Backup
+- Offline Files
+- WCF
+- MSMQ
+- Snipping Tool
+- WaaSMedic service
 
 Some of the applied tweaks:
 - Scheduler priority is set for running programs instead of background processes
@@ -39,4 +45,4 @@ post_install/ - post-install tweaks that can be copied to the installation media
 # Usage
 Host OS: Windows 10 or higher is recommended.
 
-Drop your install.wim into the project folder and run make.cmd with TrustedInstaller privileges.
+Drop your install.wim into the project folder and run make.cmd with TrustedInstaller privileges. Right now only images with en-US locale are supported, as it is hard-coded in some parts of the script.
