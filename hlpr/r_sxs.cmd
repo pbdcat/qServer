@@ -234,6 +234,7 @@ reg delete "HKLM\m_sft\Wow6432Node\Microsoft\WindowsRuntime\ActivatableClassId\W
 del %mnt%\Windows\SysWOW64\smartscreenps.dll /f /q
 
 : Hiding Start menu entries
-: attrib +h "%mnt%\ProgramData\Microsoft\Windows\Start Menu\Programs\Accessories\System Tools\Character Map.lnk"
+attrib +h "%mnt%\ProgramData\Microsoft\Windows\Start Menu\Programs\Accessories\Calculator.lnk"
+attrib +h "%mnt%\ProgramData\Microsoft\Windows\Start Menu\Programs\Accessories\System Tools\Character Map.lnk"
 
 exit /b

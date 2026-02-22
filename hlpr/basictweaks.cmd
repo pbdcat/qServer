@@ -253,4 +253,14 @@ reg add "HKLM\m_def\Console" /v "WindowAlpha" /t REG_DWORD /d 0x000000db /f
 
 reg add "HKLM\m_sft\Microsoft\Windows\CurrentVersion\Policies\Explorer" /v "SettingsPageVisibility" /t REG_SZ /d "hide:windowsdefender;search-moredetails;search-permissions;speech;windowsupdate;delivery-optimization" /f
 
+reg add "HKLM\m_usr\Software\Microsoft\Windows\CurrentVersion\Search" /v "SearchboxTaskbarMode" /t REG_DWORD /d 0x00000001 /f
+
+reg add "HKLM\m_sft\Policies\Microsoft\Windows\Server\ServerManager" /v "DoNotOpenAtLogon" /t REG_DWORD /d 0x00000001 /f
+
+reg add "HKLM\m_usr\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "DontUsePowerShellOnWinX" /t REG_DWORD /d 0x00000001 /f
+
+reg add "HKLM\m_usr\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "AutoCheckSelect" /t REG_DWORD /d 0x00000001 /f
+
+reg add "HKLM\m_usr\Software\Policies\Microsoft\Windows\Explorer" /v "NoWindowMinimizingShortcuts" /t REG_DWORD /d 0x00000001 /f
+
 exit /b

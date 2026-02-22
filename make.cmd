@@ -43,7 +43,7 @@ del /f /q /a %mnt%\Windows\System32\config\*.LOG1
 del /f /q /a %mnt%\Windows\System32\config\*.LOG2
 del /f /q /a %mnt%\Windows\System32\config\*.blf
 del /f /q /a %mnt%\Windows\System32\config\*.regtrans-ms
-rd /s /q %mnt%\inetpub
+:rd /s /q %mnt%\inetpub
 rd /s /q %mnt%\PerfLogs
 rd /s /q "%mnt%\Windows\assembly\NativeImages_v4.0.30319_32"
 rd /s /q "%mnt%\Windows\assembly\NativeImages_v4.0.30319_64"
