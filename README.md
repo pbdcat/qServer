@@ -22,9 +22,10 @@ Removed components:
 
 Some of the applied tweaks:
 - Scheduler priority is set for running programs instead of background processes
-- Disabled Shutdown Event Tracker
-- (not) Disabled Ctrl-Alt-Delete on logon (TODO)
-- Disabled all WMI autologgers and ETW channels
+- Shutdown Event Tracker disabled
+- Ctrl-Alt-Delete on logon disabled
+- Auto launching Server Manager on logon disabled
+- All WMI autologgers and ETW channels disabled
 - Context menu cleanup
 - Some tweaks for minimizing telemetry and improving overall responsiveness of the system
 
