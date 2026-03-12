@@ -263,4 +263,7 @@ reg add "HKLM\m_usr\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced"
 
 reg add "HKLM\m_usr\Software\Policies\Microsoft\Windows\Explorer" /v "NoWindowMinimizingShortcuts" /t REG_DWORD /d 0x00000001 /f
 
+reg add "HKLM\m_usr\Control Panel\Accessibility\ToggleKeys" /v "Flags" /t REG_SZ /d "58" /f
+reg add "HKLM\m_usr\Control Panel\Accessibility\Keyboard Response" /v "Flags" /t REG_SZ /d "122" /f
+
 exit /b
