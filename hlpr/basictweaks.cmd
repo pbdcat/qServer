@@ -265,5 +265,6 @@ reg add "HKLM\m_usr\Software\Policies\Microsoft\Windows\Explorer" /v "NoWindowMi
 
 reg add "HKLM\m_usr\Control Panel\Accessibility\ToggleKeys" /v "Flags" /t REG_SZ /d "58" /f
 reg add "HKLM\m_usr\Control Panel\Accessibility\Keyboard Response" /v "Flags" /t REG_SZ /d "122" /f
+reg add "HKLM\m_usr\Control Panel\Accessibility\HighContrast" /v "Flags" /t REG_SZ /d "4218" /f
 
 exit /b
