@@ -13,7 +13,6 @@ Removed components:
 - Math Input Panel
 - WordPad
 - XPS Viewer and Services
-- Windows Server Backup
 - Offline Files
 - WCF
 - MSMQ
