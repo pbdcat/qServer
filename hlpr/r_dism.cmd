@@ -9,7 +9,7 @@ hlpr\install_wim_tweak.exe /p %mnt% /r /n /c Microsoft-OneCore-Update-Orchestrat
 hlpr\install_wim_tweak.exe /p %mnt% /r /n /c Microsoft-OneCore-Upfc
 hlpr\install_wim_tweak.exe /p %mnt% /r /n /c Microsoft-OneCore-WaaSAssessment
 hlpr\install_wim_tweak.exe /p %mnt% /r /n /c Microsoft-OneCore-WaaSMedic
-hlpr\install_wim_tweak.exe /p %mnt% /r /n /c Microsoft-Windows-BLB
+:hlpr\install_wim_tweak.exe /p %mnt% /r /n /c Microsoft-Windows-BLB
 hlpr\install_wim_tweak.exe /p %mnt% /r /n /c Microsoft-Windows-DiagnosticInfrastructure
 hlpr\install_wim_tweak.exe /p %mnt% /r /n /c Microsoft-Windows-IME
 hlpr\install_wim_tweak.exe /p %mnt% /r /n /c Microsoft-Windows-InternetExplorer-Optional
