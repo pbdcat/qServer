@@ -1,54 +1,96 @@
-reg add "HKLM\m_sys\ControlSet001\Control" /v "WaitToKillServiceTimeout" /t REG_SZ /d "1000" /f
+: Enabling 10X bootamination
 reg add "HKLM\m_sys\ControlSet001\Control\BootControl" /v "BootProgressAnimation" /t REG_DWORD /d 0x00000001 /f
+
+: Enabling BSOD to show additional information
 reg add "HKLM\m_sys\ControlSet001\Control\CrashControl" /v "DisplayParameters" /t REG_DWORD /d 0x00000001 /f
+
+: Disabling auto-rebot on BSOD
 reg add "HKLM\m_sys\ControlSet001\Control\CrashControl" /v "AutoReboot" /t REG_DWORD /d 0x00000000 /f
+
+: NTFS tweaks
+reg add "HKLM\m_sys\ControlSet001\Control\FileSystem" /v "LongPathsEnabled" /t REG_DWORD /d 0x00000001 /f
+reg add "HKLM\m_sys\ControlSet001\Control\FileSystem" /v "NtfsDisable8dot3NameCreation" /t REG_DWORD /d 0x00000001 /f
+reg add "HKLM\m_sys\ControlSet001\Control\FileSystem" /v "NtfsDisableLastAccessUpdate" /t REG_DWORD /d 0x80000001 /f
+
+: Disabling VHD expansion on boot
+reg add "HKLM\m_sys\ControlSet001\Services\FsDepends\Parameters" /v "VirtualDiskExpandOnMount" /t REG_DWORD /d 0x00000004 /f
+
+: (?) Disabling exception chain validation (optimization or something)
+reg add "HKLM\m_sys\ControlSet001\Control\Session Manager\Kernel" /v "DisableExceptionChainValidation" /t REG_DWORD /d 0x00000001 /f
+
+: Disabling the pagefile, setting process scheduling to prioritize running programs
+reg add "HKLM\m_sys\ControlSet001\Control\PriorityControl" /v "Win32PrioritySeparation" /t REG_DWORD /d 0x00000026 /f
+reg add "HKLM\m_sys\ControlSet001\Control\Session Manager\Memory Management" /v "LargeSystemCache" /t REG_DWORD /d 0x00000000 /f
+reg add "HKLM\m_sys\ControlSet001\Control\Session Manager\Memory Management" /v "PagingFiles" /t REG_MULTI_SZ /d "" /f
+
+: Disabling services
+reg add "HKLM\m_sys\ControlSet001\Services\DiagTrack" /v "Start" /t REG_DWORD /d 0x00000004 /f
+reg add "HKLM\m_sys\ControlSet001\Services\diagnosticshub.standardcollector.service" /v "Start" /t REG_DWORD /d 0x00000004 /f
+
+: Disabling autologgers
 reg add "HKLM\m_sys\ControlSet001\Control\Diagnostics\Performance" /v "DisableDiagnosticTracing" /t REG_DWORD /d 0x00000001 /f
 reg add "HKLM\m_sys\ControlSet001\Control\Diagnostics\Performance\BootCKCLSettings" /v "Start" /t REG_DWORD /d 0x00000000 /f
 reg add "HKLM\m_sys\ControlSet001\Control\Diagnostics\Performance\SecondaryLogonCKCLSettings" /v "Start" /t REG_DWORD /d 0x00000000 /f
 reg add "HKLM\m_sys\ControlSet001\Control\Diagnostics\Performance\ShutdownCKCLSettings" /v "Start" /t REG_DWORD /d 0x00000000 /f
-reg add "HKLM\m_sys\ControlSet001\Control\FileSystem" /v "LongPathsEnabled" /t REG_DWORD /d 0x00000001 /f
-reg add "HKLM\m_sys\ControlSet001\Control\Session Manager\Memory Management" /v "LargeSystemCache" /t REG_DWORD /d 0x00000000 /f
-reg add "HKLM\m_sys\ControlSet001\Control\Session Manager\Memory Management" /v "PagingFiles" /t REG_MULTI_SZ /d "" /f
-reg add "HKLM\m_sys\ControlSet001\Control\PriorityControl" /v "Win32PrioritySeparation" /t REG_DWORD /d 0x00000026 /f
 reg add "HKLM\m_sys\ControlSet001\Control\WMI\Autologger" /v "Start" /t REG_DWORD /d 0x00000000 /f
 reg add "HKLM\m_sys\ControlSet001\Control\WMI\Autologger" /v "Status" /t REG_DWORD /d 0x00000000 /f
-reg add "HKLM\m_sys\ControlSet001\Control\WMI\Autologger\Circular Kernel Context Logger" /v "Start" /t REG_DWORD /d 0x00000000 /f
-reg add "HKLM\m_sys\ControlSet001\Control\WMI\Autologger\CloudExperienceHostOobe" /v "Start" /t REG_DWORD /d 0x00000000 /f
-reg add "HKLM\m_sys\ControlSet001\Control\WMI\Autologger\DiagLog" /v "Start" /t REG_DWORD /d 0x00000000 /f
-reg add "HKLM\m_sys\ControlSet001\Control\WMI\Autologger\Diagtrack-Listener" /v "Start" /t REG_DWORD /d 0x00000000 /f
-reg add "HKLM\m_sys\ControlSet001\Control\WMI\Autologger\LwtNetLog" /v "Start" /t REG_DWORD /d 0x00000000 /f
-reg add "HKLM\m_sys\ControlSet001\Control\WMI\Autologger\Mellanox-Kernel" /v "Start" /t REG_DWORD /d 0x00000000 /f
-reg add "HKLM\m_sys\ControlSet001\Control\WMI\Autologger\Microsoft-Windows-Rdp-Graphics-RdpIdd-Trace" /v "Start" /t REG_DWORD /d 0x00000000 /f
-reg add "HKLM\m_sys\ControlSet001\Control\WMI\Autologger\Microsoft-Windows-Setup" /v "Start" /t REG_DWORD /d 0x00000000 /f
-reg add "HKLM\m_sys\ControlSet001\Control\WMI\Autologger\NBSMBLOGGER" /v "Start" /t REG_DWORD /d 0x00000000 /f
-reg add "HKLM\m_sys\ControlSet001\Control\WMI\Autologger\NetCore" /v "Start" /t REG_DWORD /d 0x00000000 /f
-reg add "HKLM\m_sys\ControlSet001\Control\WMI\Autologger\NtfsLog" /v "Start" /t REG_DWORD /d 0x00000000 /f
-reg add "HKLM\m_sys\ControlSet001\Control\WMI\Autologger\PEAuthLog" /v "Start" /t REG_DWORD /d 0x00000000 /f
-reg add "HKLM\m_sys\ControlSet001\Control\WMI\Autologger\RdrLog" /v "Start" /t REG_DWORD /d 0x00000000 /f
-reg add "HKLM\m_sys\ControlSet001\Control\WMI\Autologger\SetupPlatform" /v "Start" /t REG_DWORD /d 0x00000000 /f
-reg add "HKLM\m_sys\ControlSet001\Control\WMI\Autologger\SetupPlatformTel" /v "Start" /t REG_DWORD /d 0x00000000 /f
-reg add "HKLM\m_sys\ControlSet001\Control\WMI\Autologger\SpoolerLogger" /v "Start" /t REG_DWORD /d 0x00000000 /f
-reg add "HKLM\m_sys\ControlSet001\Control\WMI\Autologger\SQMLogger" /v "Start" /t REG_DWORD /d 0x00000000 /f
-reg add "HKLM\m_sys\ControlSet001\Control\WMI\Autologger\SUM" /v "Start" /t REG_DWORD /d 0x00000000 /f
-reg add "HKLM\m_sys\ControlSet001\Control\WMI\Autologger\TCPIPLOGGER" /v "Start" /t REG_DWORD /d 0x00000000 /f
-reg add "HKLM\m_sys\ControlSet001\Control\WMI\Autologger\TileStore" /v "Start" /t REG_DWORD /d 0x00000000 /f
-reg add "HKLM\m_sys\ControlSet001\Control\WMI\Autologger\Tpm" /v "Start" /t REG_DWORD /d 0x00000000 /f
-reg add "HKLM\m_sys\ControlSet001\Control\WMI\Autologger\UBPM" /v "Start" /t REG_DWORD /d 0x00000000 /f
-reg add "HKLM\m_sys\ControlSet001\Control\WMI\Autologger\WFP-IPsec Trace" /v "Start" /t REG_DWORD /d 0x00000000 /f
-reg add "HKLM\m_sys\ControlSet001\Control\WMI\Autologger\WiFiSession" /v "Start" /t REG_DWORD /d 0x00000000 /f
-reg add "HKLM\m_sys\ControlSet001\Services\DiagTrack" /v "Start" /t REG_DWORD /d 0x00000004 /f
-reg add "HKLM\m_sys\ControlSet001\Services\diagnosticshub.standardcollector.service" /v "Start" /t REG_DWORD /d 0x00000004 /f
-reg add "HKLM\m_sys\ControlSet001\Services\FsDepends\Parameters" /v "VirtualDiskExpandOnMount" /t REG_DWORD /d 0x00000004 /f
+for /f "delims=" %%i in ('reg query "HKLM\m_sys\ControlSet001\Control\WMI\Autologger"') do (
+	reg add "%%i" /v "Start" /t REG_DWORD /d 0x00000000 /f
+)
+
+: Disabling WINEVT channels
+for /f "delims=" %%i in ('reg query "HKLM\m_sft\Microsoft\Windows\CurrentVersion\WINEVT\Channels"') do (
+	reg add "%%i" /v "Enabled" /t REG_DWORD /d 0x00000000 /f
+)
+
+: Moving temp folder to system drive root
+md %mnt%\Temp
+reg add "HKLM\m_sys\ControlSet001\Control\Session Manager\Environment" /v "TEMP" /t REG_EXPAND_SZ /d "%systemdrive%\Temp" /f
+reg add "HKLM\m_sys\ControlSet001\Control\Session Manager\Environment" /v "TMP" /t REG_EXPAND_SZ /d "%systemdrive%\Temp" /f
+reg add "HKLM\m_usr\Environment" /v "TEMP" /t REG_EXPAND_SZ /d "%systemdrive%\Temp" /f
+reg add "HKLM\m_usr\Environment" /v "TMP" /t REG_EXPAND_SZ /d "%systemdrive%\Temp" /f
+
+: (?) Disabling IE restricted mode
+reg add "HKLM\m_sft\Microsoft\Active Setup\Installed Components\{A509B1A7-37EF-4b3f-8CFC-4F3A74704073}" /v "IsInstalled" /t REG_DWORD /d 0x00000000 /f
+reg add "HKLM\m_sft\Microsoft\Active Setup\Installed Components\{A509B1A8-37EF-4b3f-8CFC-4F3A74704073}" /v "IsInstalled" /t REG_DWORD /d 0x00000000 /f
+
+: Server tweaks
+: Disabling Shutdown Event Tracker
+reg add "HKLM\m_sft\Policies\Microsoft\Windows NT\Reliability" /v "ShutdownReasonOn" /t REG_DWORD /d 0x00000000 /f
+: Disabling Ctrl-Alt-Delete to logon requirement
+reg add "HKLM\m_sft\Microsoft\Windows\CurrentVersion\RunOnce" /v "2" /t REG_SZ /d "reg add \"HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System\" /v \"DisableCAD\" /t REG_DWORD /d 0x00000001 /f" /f
+: Enabling shutdown without logon
+reg add "HKLM\m_sft\Microsoft\Windows\CurrentVersion\RunOnce" /v "3" /t REG_SZ /d "reg add \"HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System\" /v \"ShutdownWithoutLogon\" /t REG_DWORD /d 0x00000001 /f" /f
+: Disabling automatic Server Manager launch
+reg add "HKLM\m_sft\Policies\Microsoft\Windows\Server\ServerManager" /v "DoNotOpenAtLogon" /t REG_DWORD /d 0x00000001 /f
+: (?) Data Execution Prevention tweaks
+reg add "HKLM\m_sft\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\NoExecuteState" /v "LastNoExecuteRadioButtonState" /t REG_DWORD /d 0x000036bc /f
+
+: Setting console transparency
 reg add "HKLM\m_usr\Console" /v "WindowAlpha" /t REG_DWORD /d 0x000000db /f
+reg add "HKLM\m_def\Console" /v "WindowAlpha" /t REG_DWORD /d 0x000000db /f
+
+: Accessibility tweaks
 reg add "HKLM\m_usr\Control Panel\Accessibility\SlateLaunch" /v "ATapp" /t REG_SZ /d "" /f
 reg add "HKLM\m_usr\Control Panel\Accessibility\SlateLaunch" /v "LaunchAT" /t REG_DWORD /d 0x00000000 /f
 reg add "HKLM\m_usr\Control Panel\Accessibility\StickyKeys" /v "Flags" /t REG_SZ /d "2" /f
+reg add "HKLM\m_usr\Control Panel\Accessibility\ToggleKeys" /v "Flags" /t REG_SZ /d "58" /f
+reg add "HKLM\m_usr\Control Panel\Accessibility\Keyboard Response" /v "Flags" /t REG_SZ /d "122" /f
+reg add "HKLM\m_usr\Control Panel\Accessibility\HighContrast" /v "Flags" /t REG_SZ /d "4218" /f
+
+: Reducing delays
+reg add "HKLM\m_sys\ControlSet001\Control" /v "WaitToKillServiceTimeout" /t REG_SZ /d "1000" /f
 reg add "HKLM\m_usr\Control Panel\Desktop" /v "AutoEndTasks" /t REG_SZ /d "1" /f
 reg add "HKLM\m_usr\Control Panel\Desktop" /v "MenuShowDelay" /t REG_SZ /d "100" /f
 reg add "HKLM\m_usr\Control Panel\Desktop" /v "LowLevelHooksTimeout" /t REG_SZ /d "1000" /f
 reg add "HKLM\m_usr\Control Panel\Desktop" /v "WaitToKillAppTimeout" /t REG_SZ /d "1000" /f
 reg add "HKLM\m_usr\Control Panel\Mouse" /v "MouseHoverTime" /t REG_SZ /d "100" /f
+reg add "HKLM\m_usr\Software\Microsoft\Windows\CurrentVersion\Explorer\Serialize" /v "StartupDelayInMSec" /t REG_DWORD /d 0x00000000 /f
+
+: (?) Submit non-encrypted form data (probably deprecated)
 reg add "HKLM\m_usr\Software\Microsoft\Windows\CurrentVersion\Internet Settings\Zones\3" /v "1601" /t REG_DWORD /d 0x00000000 /f
+
+: Notifications
 reg add "HKLM\m_usr\Software\Microsoft\Windows\CurrentVersion\Notifications\Settings" /v "NOC_GLOBAL_SETTING_ALLOW_CRITICAL_TOASTS_ABOVE_LOCK" /t REG_DWORD /d 0x00000000 /f
 reg add "HKLM\m_usr\Software\Microsoft\Windows\CurrentVersion\Notifications\Settings" /v "NOC_GLOBAL_SETTING_ALLOW_NOTIFICATION_SOUND" /t REG_DWORD /d 0x00000000 /f
 reg add "HKLM\m_usr\Software\Microsoft\Windows\CurrentVersion\Notifications\Settings" /v "NOC_GLOBAL_SETTING_ALLOW_CRITICAL_TOASTS_ABOVE_LOCK" /t REG_DWORD /d 0x00000000 /f
@@ -58,17 +100,37 @@ reg add "HKLM\m_usr\Software\Microsoft\Windows\CurrentVersion\Policies\Attachmen
 reg add "HKLM\m_usr\Software\Microsoft\Windows\CurrentVersion\Policies\Attachments" /v "HideZoneInfoOnProperties" /t REG_DWORD /d 0x00000001 /f
 reg add "HKLM\m_usr\Software\Microsoft\Windows\CurrentVersion\PushNotifications" /v "LockScreenToastEnabled" /t REG_DWORD /d 0x00000000 /f
 reg add "HKLM\m_usr\Software\Microsoft\Windows\CurrentVersion\UserProfileEngagement" /v "ScoobeSystemSettingEnabled" /t REG_DWORD /d 0x00000000 /f
+
+: Forcing to use latest .NET runtimes
 reg add "HKLM\m_sft\Microsoft\.NETFramework" /v "OnlyUseLatestCLR" /t REG_DWORD /d 0x00000001 /f
 reg add "HKLM\m_sft\WOW6432Node\Microsoft\.NETFramework" /v "OnlyUseLatestCLR" /t REG_DWORD /d 0x00000001 /f
+
+: Setting PowerShell execution policy
 reg add "HKLM\m_sft\Microsoft\PowerShell\1\ShellIds\Microsoft.PowerShell" /v "ExecutionPolicy" /t REG_SZ /d "RemoteSigned" /f
 reg add "HKLM\m_sft\WOW6432Node\Microsoft\PowerShell\1\ShellIds\Microsoft.PowerShell" /v "ExecutionPolicy" /t REG_SZ /d "RemoteSigned" /f
-reg add "HKLM\m_sft\Policies\Microsoft\PreviousVersions" /v "DisableLocalPage" /t REG_DWORD /d 0x00000001 /f
+
+: Enabling DISM /resetbase
 reg add "HKLM\m_sft\Microsoft\Windows\CurrentVersion\SideBySide\Configuration" /v "DisableResetbase" /t REG_DWORD /d 0x00000000 /f
+
+: Disabling Performance counters
 reg add "HKLM\m_sft\Microsoft\Windows NT\CurrentVersion\Perflib" /v "Disable Performance Counters" /t REG_DWORD /d 0x00000001 /f
+
+: Disabling Windows Update
+reg add "HKLM\m_sft\Policies\Microsoft\Windows\WindowsUpdate\AU" /v "NoAutoUpdate" /t REG_DWORD /d 0x00000001 /f
+reg add "HKLM\m_sft\Policies\Microsoft\Windows\DeliveryOptimization" /v "DODownloadMode" /t REG_DWORD /d 0x00000000 /f
+
+: Disabling automatic driver download
+reg add "HKLM\m_sft\Microsoft\Windows\CurrentVersion\Device Metadata" /v "PreventDeviceMetadataFromNetwork" /t REG_DWORD /d 0x00000001 /f
+reg add "HKLM\m_sft\Policies\Microsoft\Windows\DriverSearching" /v "SearchOrderConfig" /t REG_DWORD /d 0x00000000 /f
+
+: Disabling Automatic maintenance and diagnostics
 reg add "HKLM\m_sft\Microsoft\Windows\ScheduledDiagnostics" /v "EnabledExecution" /t REG_DWORD /d 0x00000000 /f
 reg add "HKLM\m_sft\Microsoft\Windows NT\CurrentVersion\Schedule\Maintenance" /v "MaintenanceDisabled" /t REG_DWORD /d 0x00000001 /f
 reg add "HKLM\m_sft\Policies\Microsoft\Windows\ScheduledDiagnostics" /v "EnabledExecution" /t REG_DWORD /d 0x00000000 /f
 reg add "HKLM\m_sft\Policies\Microsoft\Windows\ScriptedDiagnosticsProvider\Policy" /v "DisableQueryRemoteServer" /t REG_DWORD /d 0x00000000 /f
+reg add "HKLM\m_sft\Policies\Microsoft\Windows\StorageSense" /v "AllowStorageSenseGlobal" /t REG_DWORD /d 0x00000000 /f
+
+: Scheduled tasks cleanup
 reg delete "HKLM\m_sft\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tasks\{0EAC8176-4A3B-454A-AEA7-B19989687099}" /f
 reg delete "HKLM\m_sft\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tasks\{D93066BB-BB19-4175-9AB3-39F514810576}" /f
 reg delete "HKLM\m_sft\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tasks\{78660B2E-30ED-4848-A53D-8021F83854B1}" /f
@@ -99,11 +161,15 @@ reg delete "HKLM\m_sft\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tr
 reg delete "HKLM\m_sft\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\Maintenance\WinSAT" /f
 reg delete "HKLM\m_sft\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\NetTrace\GatherNetworkInfo" /f
 reg delete "HKLM\m_sft\Microsoft\Windows NT\CurrentVersion\Schedule\TaskCache\Tree\Microsoft\Windows\PI\Sqm-Tasks" /f
+
+: AppCompat tweaks
 reg add "HKLM\m_sft\Policies\Microsoft\Windows\AppCompat" /v "AITEnable" /t REG_DWORD /d 0x00000000 /f
 reg add "HKLM\m_sft\Policies\Microsoft\Windows\AppCompat" /v "DisableEngine" /t REG_DWORD /d 0x00000001 /f
 reg add "HKLM\m_sft\Policies\Microsoft\Windows\AppCompat" /v "DisableInventory" /t REG_DWORD /d 0x00000001 /f
 reg add "HKLM\m_sft\Policies\Microsoft\Windows\AppCompat" /v "DisablePCA" /t REG_DWORD /d 0x00000001 /f
 reg add "HKLM\m_sft\Policies\Microsoft\Windows\AppCompat" /v "SbEnable" /t REG_DWORD /d 0x00000000 /f
+
+: MMCSS tweaks
 reg add "HKLM\m_sft\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile" /v "NetworkThrottlingIndex" /t REG_DWORD /d 0x00000000 /f
 reg add "HKLM\m_sft\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile" /v "SystemResponsiveness" /t REG_DWORD /d 0x0000000a /f
 reg add "HKLM\m_sft\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks\DisplayPostProcessing" /v "GPU Priority" /t REG_DWORD /d 0x0000000c /f
@@ -114,8 +180,35 @@ reg add "HKLM\m_sft\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile
 reg add "HKLM\m_sft\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks\Games" /v "Priority" /t REG_DWORD /d 0x00000008 /f
 reg add "HKLM\m_sft\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks\Games" /v "Scheduling Category" /t REG_SZ /d "High" /f
 reg add "HKLM\m_sft\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile\Tasks\Games" /v "SFIO Priority" /t REG_SZ /d "High" /f
-reg add "HKLM\m_sft\Classes\CLSID\{679f85cb-0220-4080-b29b-5540cc05aab6}\ShellFolder" /v "Attributes" /t REG_DWORD /d 0xa0600000 /f
-reg add "HKLM\m_sft\Classes\CLSID\{F02C1A0D-BE21-4350-88B0-7367FC96EF3C}\ShellFolder" /v "Attributes" /t REG_DWORD /d 0xb0940064 /f
+
+: Hiding Settings categories
+reg add "HKLM\m_sft\Microsoft\Windows\CurrentVersion\Policies\Explorer" /v "SettingsPageVisibility" /t REG_SZ /d "hide:windowsdefender;search-moredetails;search-permissions;speech;windowsupdate;delivery-optimization" /f
+
+: Disabling the lock screen
+reg add "HKLM\m_sft\Policies\Microsoft\Windows\Personalization" /v "NoLockScreen" /t REG_DWORD /d 0x00000001 /f
+reg add "HKLM\m_sft\Policies\Microsoft\Windows\Personalization" /v "LockScreenImage" /t REG_SZ /d "" /f
+
+: Explorer tweaks
+reg add "HKLM\m_usr\Software\Classes\Local Settings\Software\Microsoft\Windows\Shell\Bags\AllFolders\Shell" /v "FolderType" /t REG_SZ /d "NotSpecified" /f
+reg add "HKLM\m_usr\Software\Microsoft\Windows\CurrentVersion\Explorer" /v "ShowRecent" /t REG_DWORD /d 0x00000000 /f
+reg add "HKLM\m_usr\Software\Microsoft\Windows\CurrentVersion\Explorer" /v "ShowFrequent" /t REG_DWORD /d 0x00000000 /f
+reg add "HKLM\m_usr\Software\Microsoft\Windows\CurrentVersion\Explorer" /v "link" /t REG_BINARY /d "00000000" /f
+reg add "HKLM\m_usr\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "LaunchTo" /t REG_DWORD /d 0x00000001 /f
+reg add "HKLM\m_usr\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "SharingWizardOn" /t REG_DWORD /d 0x00000000 /f
+reg add "HKLM\m_usr\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "ShowSyncProviderNotifications" /t REG_DWORD /d 0x00000000 /f
+reg add "HKLM\m_usr\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "Start_TrackDocs" /t REG_DWORD /d 0x00000000 /f
+reg add "HKLM\m_usr\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "Start_TrackProgs" /t REG_DWORD /d 0x00000000 /f
+reg add "HKLM\m_usr\Software\Microsoft\Windows\CurrentVersion\Explorer\AutoplayHandlers" /v "DisableAutoplay" /t REG_DWORD /d 0x00000001 /f
+reg add "HKLM\m_usr\Software\Policies\Microsoft\Windows\Explorer" /v "HideRecentlyAddedApps" /t REG_DWORD /d 0x00000001 /f
+reg add "HKLM\m_usr\Software\Policies\Microsoft\Windows\Explorer" /v "NoBalloonFeatureAdvertisements" /t REG_DWORD /d 0x00000001 /f
+reg add "HKLM\m_sft\Microsoft\Windows\CurrentVersion\Policies\Explorer" /v "AllowOnlineTips" /t REG_DWORD /d 0x00000000 /f
+: Hiding side panel
+reg add "HKLM\m_usr\Software\Microsoft\Windows\CurrentVersion\Explorer\Modules\GlobalSettings\Sizer" /v "PageSpaceControlSizer" /t REG_BINARY /d "a0000000000000000000000010030000" /f
+reg add "HKLM\m_usr\Software\Microsoft\Windows\CurrentVersion\Explorer\CIDOpen\Modules\GlobalSettings\Sizer" /v "PageSpaceControlSizer" /t REG_BINARY /d "a0000000000000000000000061020000" /f
+reg add "HKLM\m_usr\Software\Microsoft\Windows\CurrentVersion\Explorer\CIDSave\Modules\GlobalSettings\Sizer" /v "PageSpaceControlSizer" /t REG_BINARY /d "a0000000000000000000000061020000" /f
+: Hiding removable drives from side panel
+reg delete "HKLM\m_sft\Microsoft\Windows\CurrentVersion\Explorer\Desktop\NameSpace\DelegateFolders\{F5FB2C77-0E2F-4A16-A381-3E560C68BC83}" /f
+: Context menu cleanup
 reg delete "HKLM\m_sft\Classes\*\shellex\ContextMenuHandlers\Sharing" /f
 reg delete "HKLM\m_sft\Classes\Directory\Background\shellex\ContextMenuHandlers\Sharing" /f
 reg delete "HKLM\m_sft\Classes\Directory\shellex\ContextMenuHandlers\Sharing" /f
@@ -130,6 +223,7 @@ reg delete "HKLM\m_sft\Classes\*\shellex\ContextMenuHandlers\ModernSharing" /f
 reg delete "HKLM\m_sft\Classes\CLSID\{926749fa-2615-4987-8845-c33e65f2b957}" /f
 reg delete "HKLM\m_sft\Classes\Directory\background\shell\cmd" /v "HideBasedOnVelocityId" /f
 reg delete "HKLM\m_sft\Classes\Directory\shell\cmd" /v "HideBasedOnVelocityId" /f
+: Hiding folders
 reg add "HKLM\m_sft\Microsoft\Windows\CurrentVersion\Explorer\FolderDescriptions\{35286a68-3c57-41a1-bbb1-0eae73d76c95}\PropertyBag" /v "ThisPCPolicy" /t REG_SZ /d "Hide" /f
 reg add "HKLM\m_sft\Microsoft\Windows\CurrentVersion\Explorer\FolderDescriptions\{f42ee2d3-909f-4907-8871-4c22fc0bf756}\PropertyBag" /v "ThisPCPolicy" /t REG_SZ /d "Hide" /f
 reg add "HKLM\m_sft\Microsoft\Windows\CurrentVersion\Explorer\FolderDescriptions\{7d83ee9b-2244-4e70-b1f5-5393042af1e4}\PropertyBag" /v "ThisPCPolicy" /t REG_SZ /d "Hide" /f
@@ -137,24 +231,38 @@ reg add "HKLM\m_sft\Microsoft\Windows\CurrentVersion\Explorer\FolderDescriptions
 reg add "HKLM\m_sft\Microsoft\Windows\CurrentVersion\Explorer\FolderDescriptions\{a0c69a99-21c8-4671-8703-7934162fcf1d}\PropertyBag" /v "ThisPCPolicy" /t REG_SZ /d "Hide" /f
 reg add "HKLM\m_sft\Microsoft\Windows\CurrentVersion\Explorer\FolderDescriptions\{B4BFCC3A-DB2C-424C-B029-7FE99A87C641}\PropertyBag" /v "ThisPCPolicy" /t REG_SZ /d "Hide" /f
 reg add "HKLM\m_sft\Microsoft\Windows\CurrentVersion\Explorer\FolderDescriptions\{31C0DD25-9439-4F12-BF41-7FF4EDA38722}\PropertyBag" /v "ThisPCPolicy" /t REG_SZ /d "Hide" /f
-reg add "HKLM\m_sft\Microsoft\Windows\CurrentVersion\Policies\Explorer" /v "AllowOnlineTips" /t REG_DWORD /d 0x00000000 /f
-reg add "HKLM\m_usr\Software\Classes\Local Settings\Software\Microsoft\Windows\Shell\Bags\AllFolders\Shell" /v "FolderType" /t REG_SZ /d "NotSpecified" /f
-reg add "HKLM\m_usr\Software\Microsoft\Windows\CurrentVersion\Explorer" /v "ShowRecent" /t REG_DWORD /d 0x00000000 /f
-reg add "HKLM\m_usr\Software\Microsoft\Windows\CurrentVersion\Explorer" /v "ShowFrequent" /t REG_DWORD /d 0x00000000 /f
-reg add "HKLM\m_usr\Software\Microsoft\Windows\CurrentVersion\Explorer" /v "link" /t REG_BINARY /d "00000000" /f
-reg add "HKLM\m_usr\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "LaunchTo" /t REG_DWORD /d 0x00000001 /f
-reg add "HKLM\m_usr\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "SharingWizardOn" /t REG_DWORD /d 0x00000000 /f
-reg add "HKLM\m_usr\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "ShowSyncProviderNotifications" /t REG_DWORD /d 0x00000000 /f
-reg add "HKLM\m_usr\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "Start_TrackDocs" /t REG_DWORD /d 0x00000000 /f
-reg add "HKLM\m_usr\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "Start_TrackProgs" /t REG_DWORD /d 0x00000000 /f
-reg add "HKLM\m_usr\Software\Microsoft\Windows\CurrentVersion\Explorer\AutoplayHandlers" /v "DisableAutoplay" /t REG_DWORD /d 0x00000001 /f
-reg add "HKLM\m_usr\Software\Microsoft\Windows\CurrentVersion\Explorer\CIDOpen\Modules\GlobalSettings\Sizer" /v "PageSpaceControlSizer" /t REG_BINARY /d "a0000000000000000000000061020000" /f
-reg add "HKLM\m_usr\Software\Microsoft\Windows\CurrentVersion\Explorer\CIDSave\Modules\GlobalSettings\Sizer" /v "PageSpaceControlSizer" /t REG_BINARY /d "a0000000000000000000000061020000" /f
-reg delete "HKLM\m_sft\Microsoft\Windows\CurrentVersion\Explorer\Desktop\NameSpace\DelegateFolders\{F5FB2C77-0E2F-4A16-A381-3E560C68BC83}" /f
-reg add "HKLM\m_usr\Software\Microsoft\Windows\CurrentVersion\Explorer\Modules\GlobalSettings\Sizer" /v "PageSpaceControlSizer" /t REG_BINARY /d "a0000000000000000000000010030000" /f
-reg add "HKLM\m_usr\Software\Microsoft\Windows\CurrentVersion\Explorer\Serialize" /v "StartupDelayInMSec" /t REG_DWORD /d 0x00000000 /f
-reg add "HKLM\m_usr\Software\Policies\Microsoft\Windows\Explorer" /v "HideRecentlyAddedApps" /t REG_DWORD /d 0x00000001 /f
-reg add "HKLM\m_usr\Software\Policies\Microsoft\Windows\Explorer" /v "NoBalloonFeatureAdvertisements" /t REG_DWORD /d 0x00000001 /f
+: Hiding Quick Access and Network from side panel
+reg add "HKLM\m_sft\Classes\CLSID\{679f85cb-0220-4080-b29b-5540cc05aab6}\ShellFolder" /v "Attributes" /t REG_DWORD /d 0xa0600000 /f
+reg add "HKLM\m_sft\Classes\CLSID\{F02C1A0D-BE21-4350-88B0-7367FC96EF3C}\ShellFolder" /v "Attributes" /t REG_DWORD /d 0xb0940064 /f
+: Hiding Previous versions tab
+reg add "HKLM\m_sft\Policies\Microsoft\PreviousVersions" /v "DisableLocalPage" /t REG_DWORD /d 0x00000001 /f
+: Search icon in taskbar
+reg add "HKLM\m_usr\Software\Microsoft\Windows\CurrentVersion\Search" /v "SearchboxTaskbarMode" /t REG_DWORD /d 0x00000001 /f
+: Command Prompt in Win-X menu
+reg add "HKLM\m_usr\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "DontUsePowerShellOnWinX" /t REG_DWORD /d 0x00000001 /f
+: Enabling checkboxes
+reg add "HKLM\m_usr\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "AutoCheckSelect" /t REG_DWORD /d 0x00000001 /f
+: Disabling Aero Shake
+reg add "HKLM\m_usr\Software\Policies\Microsoft\Windows\Explorer" /v "NoWindowMinimizingShortcuts" /t REG_DWORD /d 0x00000001 /f
+
+: Search tweaks
+reg add "HKLM\m_sft\Policies\Microsoft\Windows\Windows Search" /v "AllowCloudSearch" /t REG_DWORD /d 0x00000000 /f
+reg add "HKLM\m_sft\Policies\Microsoft\Windows\Windows Search" /v "AllowCortana" /t REG_DWORD /d 0x00000000 /f
+reg add "HKLM\m_sft\Policies\Microsoft\Windows\Windows Search" /v "AllowSearchToUseLocation" /t REG_DWORD /d 0x00000000 /f
+reg add "HKLM\m_sft\Policies\Microsoft\Windows\Windows Search" /v "ConnectedSearchUseWeb" /t REG_DWORD /d 0x00000000 /f
+reg add "HKLM\m_sft\Policies\Microsoft\Windows\Windows Search" /v "DisableWebSearch" /t REG_DWORD /d 0x00000001 /f
+reg add "HKLM\m_sft\Policies\Microsoft\Windows\Windows Search" /v "EnableDynamicContentInWSB" /t REG_DWORD /d 0x00000000 /f
+reg add "HKLM\m_usr\Software\Microsoft\Windows\CurrentVersion\Search" /v "CortanaConsent" /t REG_DWORD /d 0x00000000 /f
+reg add "HKLM\m_usr\Software\Microsoft\Windows\CurrentVersion\SearchSettings" /v "IsDeviceSearchHistoryEnabled" /t REG_DWORD /d 0x00000000 /f
+reg add "HKLM\m_usr\Software\Microsoft\Windows\CurrentVersion\SearchSettings" /v "IsAADCloudSearchEnabled" /t REG_DWORD /d 0x00000000 /f
+reg add "HKLM\m_usr\Software\Microsoft\Windows\CurrentVersion\SearchSettings" /v "IsMSACloudSearchEnabled" /t REG_DWORD /d 0x00000000 /f
+reg add "HKLM\m_usr\Software\Microsoft\Windows\CurrentVersion\SearchSettings" /v "SafeSearchMode" /t REG_DWORD /d 0x00000000 /f
+reg add "HKLM\m_usr\Software\Policies\Microsoft\Windows\Explorer" /v "DisableSearchBoxSuggestions" /t REG_DWORD /d 0x00000001 /f
+reg add "HKLM\m_usr\Software\Policies\Microsoft\Windows\Explorer" /v "DisableSearchHistory" /t REG_DWORD /d 0x00000001 /f
+
+: Privacy tweaks
+reg add "HKLM\m_sft\Microsoft\PolicyManager\default\WiFi\AllowWiFiHotSpotReporting" /v "value" /t REG_DWORD /d 0x00000000 /f
+reg add "HKLM\m_sft\Microsoft\PolicyManager\default\WiFi\AllowAutoConnectToWiFiSenseHotspots" /v "value" /t REG_DWORD /d 0x00000000 /f
 reg add "HKLM\m_sft\Microsoft\PolicyManager\current\device\System" /v "AllowExperimentation" /t REG_DWORD /d 0x00000000 /f
 reg add "HKLM\m_sft\Microsoft\Internet Explorer\Security" /v "DisableSecuritySettingsCheck" /t REG_DWORD /d 0x00000001 /f
 reg add "HKLM\m_sft\Microsoft\wcmsvc\wifinetworkmanager\config" /v "AutoConnectAllowedOEM" /t REG_DWORD /d 0x00000000 /f
@@ -187,10 +295,11 @@ reg add "HKLM\m_sft\Policies\Microsoft\Windows\System" /v "EnableActivityFeed" /
 reg add "HKLM\m_sft\Policies\Microsoft\Windows\System" /v "EnableCdp" /t REG_DWORD /d 0x00000000 /f
 reg add "HKLM\m_sft\Policies\Microsoft\Windows\System" /v "PublishUserActivities" /t REG_DWORD /d 0x00000000 /f
 reg add "HKLM\m_sft\Policies\Microsoft\Windows\System" /v "UploadUserActivities" /t REG_DWORD /d 0x00000000 /f
-reg add "HKLM\m_sft\Policies\Microsoft\Windows\Windows Error Reporting" /v "Disabled" /t REG_DWORD /d 0x00000001 /f
-reg add "HKLM\m_sft\Policies\Microsoft\Windows NT\CurrentVersion\Software Protection Platform" /v "NoGenTicket" /t REG_DWORD /d 0x00000001 /f
 reg add "HKLM\m_usr\Software\Microsoft\Siuf\Rules" /v "NumberOfSIUFInPeriod" /t REG_DWORD /d 0x00000000 /f
 reg add "HKLM\m_usr\Software\Microsoft\Siuf\Rules" /v "PeriodInNanoSeconds" /t REG_DWORD /d 0x00000000 /f
+: Disabling Windows Error Reporting
+reg add "HKLM\m_sft\Policies\Microsoft\Windows\Windows Error Reporting" /v "Disabled" /t REG_DWORD /d 0x00000001 /f
+reg add "HKLM\m_sft\Policies\Microsoft\Windows NT\CurrentVersion\Software Protection Platform" /v "NoGenTicket" /t REG_DWORD /d 0x00000001 /f
 reg add "HKLM\m_usr\Software\Microsoft\Windows\CurrentVersion\Diagnostics\DiagTrack" /v "ShowedToastAtLevel" /t REG_DWORD /d 0x00000001 /f
 reg add "HKLM\m_usr\Software\Microsoft\Windows\CurrentVersion\Internet Settings" /v "EnableNegotiate" /t REG_DWORD /d 0x00000000 /f
 reg add "HKLM\m_usr\Software\Microsoft\Windows\CurrentVersion\Internet Settings" /v "WarnonZoneCrossing" /t REG_DWORD /d 0x00000000 /f
@@ -199,7 +308,10 @@ reg add "HKLM\m_usr\Software\Policies\Microsoft\Assistance\Client\1.0" /v "NoExp
 reg add "HKLM\m_usr\Software\Policies\Microsoft\Assistance\Client\1.0" /v "NoImplicitFeedback" /t REG_DWORD /d 0x00000001 /f
 reg add "HKLM\m_usr\Software\Policies\Microsoft\Assistance\Client\1.0" /v "NoOnlineAssist" /t REG_DWORD /d 0x00000001 /f
 reg add "HKLM\m_usr\Software\Policies\Microsoft\Windows\CloudContent" /v "DisableTailoredExperiencesWithDiagnosticData" /t REG_DWORD /d 0x00000001 /f
+reg add "HKLM\m_sft\Microsoft\Windows\CurrentVersion\RunOnce" /v "1" /t REG_SZ /d "reg add \"HKCU\Control Panel\International\User Profile\" /v \"HttpAcceptLanguageOptOut\" /t REG_DWORD /d 0x00000001 /f" /f
+: Disabling Windows Spotlight
 reg add "HKLM\m_usr\Software\Policies\Microsoft\Windows\CloudContent" /v "DisableWindowsSpotlightFeatures" /t REG_DWORD /d 0x00000001 /f
+: Disabling input personalization
 reg add "HKLM\m_sft\Policies\Microsoft\InputPersonalization" /v "AllowInputPersonalization" /t REG_DWORD /d 0x00000000 /f
 reg add "HKLM\m_sft\Policies\Microsoft\InputPersonalization" /v "RestrictImplicitTextCollection" /t REG_DWORD /d 0x00000001 /f
 reg add "HKLM\m_sft\Policies\Microsoft\InputPersonalization" /v "RestrictImplicitInkCollection" /t REG_DWORD /d 0x00000001 /f
@@ -220,51 +332,5 @@ reg add "HKLM\m_usr\Software\Microsoft\TabletTip\1.7" /v "EnableSpellchecking" /
 reg add "HKLM\m_usr\Software\Microsoft\TabletTip\1.7" /v "EnableTextPrediction" /t REG_DWORD /d 0x00000000 /f
 reg add "HKLM\m_usr\Software\Microsoft\TabletTip\1.7" /v "EnablePredictionSpaceInsertion" /t REG_DWORD /d 0x00000000 /f
 reg add "HKLM\m_usr\Software\Microsoft\TabletTip\1.7" /v "EnableDoubleTapSpace" /t REG_DWORD /d 0x00000000 /f
-reg add "HKLM\m_sft\Policies\Microsoft\Windows\WindowsUpdate\AU" /v "NoAutoUpdate" /t REG_DWORD /d 0x00000001 /f
-reg add "HKLM\m_sft\Policies\Microsoft\Windows\DeliveryOptimization" /v "DODownloadMode" /t REG_DWORD /d 0x00000000 /f
-reg add "HKLM\m_sft\Microsoft\Windows\CurrentVersion\Device Metadata" /v "PreventDeviceMetadataFromNetwork" /t REG_DWORD /d 0x00000001 /f
-reg add "HKLM\m_sft\Policies\Microsoft\Windows\DriverSearching" /v "SearchOrderConfig" /t REG_DWORD /d 0x00000000 /f
-reg add "HKLM\m_sft\Microsoft\Active Setup\Installed Components\{A509B1A7-37EF-4b3f-8CFC-4F3A74704073}" /v "IsInstalled" /t REG_DWORD /d 0x00000000 /f
-reg add "HKLM\m_sft\Microsoft\Active Setup\Installed Components\{A509B1A8-37EF-4b3f-8CFC-4F3A74704073}" /v "IsInstalled" /t REG_DWORD /d 0x00000000 /f
-reg add "HKLM\m_sft\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\NoExecuteState" /v "LastNoExecuteRadioButtonState" /t REG_DWORD /d 0x000036bc /f
-reg add "HKLM\m_sft\Policies\Microsoft\Windows NT\Reliability" /v "ShutdownReasonOn" /t REG_DWORD /d 0x00000000 /f
-reg add "HKLM\m_sys\ControlSet001\Control\Session Manager\Kernel" /v "DisableExceptionChainValidation" /t REG_DWORD /d 0x00000001 /f
-reg add "HKLM\m_sft\Microsoft\Windows\CurrentVersion\RunOnce" /v "1" /t REG_SZ /d "reg add \"HKCU\Control Panel\International\User Profile\" /v \"HttpAcceptLanguageOptOut\" /t REG_DWORD /d 0x00000001 /f" /f
-reg add "HKLM\m_sft\Microsoft\Windows\CurrentVersion\RunOnce" /v "2" /t REG_SZ /d "reg add \"HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System\" /v \"DisableCAD\" /t REG_DWORD /d 0x00000001 /f" /f
-reg add "HKLM\m_sft\Microsoft\Windows\CurrentVersion\RunOnce" /v "3" /t REG_SZ /d "reg add \"HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System\" /v \"ShutdownWithoutLogon\" /t REG_DWORD /d 0x00000001 /f" /f
-
-for /f "delims=" %%i in ('reg query "HKLM\m_sft\Microsoft\Windows\CurrentVersion\WINEVT\Channels"') do (
-	reg add "%%i" /v "Enabled" /t REG_DWORD /d 0x00000000 /f
-)
-
-reg add "HKLM\m_sft\Policies\Microsoft\Windows\System" /v "EnableSmartScreen" /t REG_DWORD /d 0x00000000 /f
-reg add "HKLM\m_sys\ControlSet001\Control\FileSystem" /v "NtfsDisable8dot3NameCreation" /t REG_DWORD /d 0x00000001 /f
-reg add "HKLM\m_sys\ControlSet001\Control\FileSystem" /v "NtfsDisableLastAccessUpdate" /t REG_DWORD /d 0x80000001 /f
-reg add "HKLM\m_sft\Policies\Microsoft\Windows\Personalization" /v "NoLockScreen" /t REG_DWORD /d 0x00000001 /f
-reg add "HKLM\m_sft\Policies\Microsoft\Windows\Personalization" /v "LockScreenImage" /t REG_SZ /d "" /f
-
-md %mnt%\Temp
-reg add "HKLM\m_sys\ControlSet001\Control\Session Manager\Environment" /v "TEMP" /t REG_EXPAND_SZ /d "%systemdrive%\Temp" /f
-reg add "HKLM\m_sys\ControlSet001\Control\Session Manager\Environment" /v "TMP" /t REG_EXPAND_SZ /d "%systemdrive%\Temp" /f
-reg add "HKLM\m_usr\Environment" /v "TEMP" /t REG_EXPAND_SZ /d "%systemdrive%\Temp" /f
-reg add "HKLM\m_usr\Environment" /v "TMP" /t REG_EXPAND_SZ /d "%systemdrive%\Temp" /f
-
-reg add "HKLM\m_def\Console" /v "WindowAlpha" /t REG_DWORD /d 0x000000db /f
-
-reg add "HKLM\m_sft\Microsoft\Windows\CurrentVersion\Policies\Explorer" /v "SettingsPageVisibility" /t REG_SZ /d "hide:windowsdefender;search-moredetails;search-permissions;speech;windowsupdate;delivery-optimization" /f
-
-reg add "HKLM\m_usr\Software\Microsoft\Windows\CurrentVersion\Search" /v "SearchboxTaskbarMode" /t REG_DWORD /d 0x00000001 /f
-
-reg add "HKLM\m_sft\Policies\Microsoft\Windows\Server\ServerManager" /v "DoNotOpenAtLogon" /t REG_DWORD /d 0x00000001 /f
-
-reg add "HKLM\m_usr\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "DontUsePowerShellOnWinX" /t REG_DWORD /d 0x00000001 /f
-
-reg add "HKLM\m_usr\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" /v "AutoCheckSelect" /t REG_DWORD /d 0x00000001 /f
-
-reg add "HKLM\m_usr\Software\Policies\Microsoft\Windows\Explorer" /v "NoWindowMinimizingShortcuts" /t REG_DWORD /d 0x00000001 /f
-
-reg add "HKLM\m_usr\Control Panel\Accessibility\ToggleKeys" /v "Flags" /t REG_SZ /d "58" /f
-reg add "HKLM\m_usr\Control Panel\Accessibility\Keyboard Response" /v "Flags" /t REG_SZ /d "122" /f
-reg add "HKLM\m_usr\Control Panel\Accessibility\HighContrast" /v "Flags" /t REG_SZ /d "4218" /f
 
 exit /b
